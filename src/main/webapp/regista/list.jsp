@@ -22,8 +22,8 @@
 		    <span aria-hidden="true">&times;</span>
 		  </button>
 		</div>
-		<div class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-		  Esempio di operazione fallita!
+		<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
+		 ${errorMessage} 
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		    <span aria-hidden="true">&times;</span>
 		  </button>
@@ -67,8 +67,8 @@
 									<td>${registaItem.sesso.abbreviazione }</td>
 									<td>
 										<a class="btn  btn-sm btn-outline-secondary" href="ExecuteVisualizzaRegistaServlet?idRegista=${registaItem.id }">Visualizza</a>
-										<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="laservletpermodificare">Edit</a>
-										<a class="btn btn-outline-danger btn-sm" href="laservletperrimuovere">Delete</a>
+										<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="PrepareModificaRegistaServlet?idRegista=${registaItem.id }">Edit</a>
+										<a class="btn btn-outline-danger btn-sm" href="PrepareDeleteRegistaServlet?idRegista=${registaItem.id }">Delete</a>
 								</tr>
 							</c:forEach>
 		                </tbody>

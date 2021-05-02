@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import it.prova.raccoltafilmspringbootservletspringdata.model.Regista;
 
 public class CustomRegistaRepositoryImpl implements CustomRegistaRepository {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -45,8 +46,8 @@ public class CustomRegistaRepositoryImpl implements CustomRegistaRepository {
 			whereClauses.add("r.dataDiNascita >= :dataDiNascita ");
 			paramaterMap.put("dataDiNascita", example.getDataDiNascita());
 		}
-		
-		queryBuilder.append(!whereClauses.isEmpty()?" and ":"");
+
+		queryBuilder.append(!whereClauses.isEmpty() ? " and " : "");
 		queryBuilder.append(StringUtils.join(whereClauses, " and "));
 		TypedQuery<Regista> typedQuery = entityManager.createQuery(queryBuilder.toString(), Regista.class);
 
@@ -57,4 +58,9 @@ public class CustomRegistaRepositoryImpl implements CustomRegistaRepository {
 		return typedQuery.getResultList();
 	}
 
+	@Override
+	public Optional<Regista> findByIdEager(Long idInput) {
+		return entityManager.createQuery("from Regista r left join fetch r.films where r.id=:idRegista", Regista.class)
+				.setParameter("idRegista", idInput).getResultList().stream().findFirst();
+	}
 }

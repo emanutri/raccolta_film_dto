@@ -32,8 +32,6 @@ public class ExecuteDeleteFilmServlet extends HttpServlet {
 
 		String idFilmParameter = request.getParameter("idDeleteInput");
 
-		// FilmService filmService = MyServiceFactory.getFilmServiceInstance();
-
 		if (!NumberUtils.isCreatable(idFilmParameter)) {
 
 			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo

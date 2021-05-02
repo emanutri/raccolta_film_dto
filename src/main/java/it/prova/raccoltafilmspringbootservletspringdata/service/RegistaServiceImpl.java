@@ -28,7 +28,7 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Transactional(readOnly = true)
 	public Regista caricaSingoloElementoConFilms(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdEager(id).orElse(null);
 	}
 
 	@Transactional
@@ -43,7 +43,10 @@ public class RegistaServiceImpl implements RegistaService {
 
 	@Transactional
 	public void rimuovi(Regista registaInstance) {
-		repository.delete(registaInstance);
+		if (repository.findByIdEager(registaInstance.getId()).get().getFilms().size() > 0)
+			throw new RuntimeException("Non posso rimuovere questo regista.");
+		else
+			repository.delete(registaInstance);
 	}
 
 	@Transactional(readOnly = true)
