@@ -24,6 +24,8 @@ import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.regista.Exec
 import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.regista.ExecuteVisualizzaRegistaServlet;
 import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.regista.PrepareDeleteRegistaServlet;
 import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.regista.PrepareModificaRegistaServlet;
+import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.utente.ExecuteSearchUtenteServlet;
+import it.prova.raccoltafilmspringbootservletspringdata.web.servlet.utente.PrepareSearchUtenteServlet;
 
 @Configuration
 public class SerlvetRegistrationConfig {
@@ -73,6 +75,12 @@ public class SerlvetRegistrationConfig {
 	@Autowired
 	private ExecuteDeleteFilmServlet executeDeleteFilmServlet;
 
+	// --------------------utente---------------------------------
+	@Autowired
+	private PrepareSearchUtenteServlet prepareSearchUtenteServlet;
+	@Autowired
+	private ExecuteSearchUtenteServlet executeSearchUtenteServlet;
+
 	@Bean
 	public ServletRegistrationBean<LoginServlet> createLoginServletBean() {
 		ServletRegistrationBean<LoginServlet> bean = new ServletRegistrationBean<LoginServlet>(loginServlet,
@@ -88,7 +96,7 @@ public class SerlvetRegistrationConfig {
 				prepareDeleteRegistaServlet, "/PrepareDeleteRegistaServlet");
 		return bean;
 	}
-	
+
 	@Bean
 	public ServletRegistrationBean<PrepareModificaRegistaServlet> createPrepareModificaRegistaServletBean() {
 		ServletRegistrationBean<PrepareModificaRegistaServlet> bean = new ServletRegistrationBean<PrepareModificaRegistaServlet>(
@@ -130,7 +138,7 @@ public class SerlvetRegistrationConfig {
 				executeDeleteRegistaServlet, "/ExecuteDeleteRegistaServlet");
 		return bean;
 	}
-	
+
 	@Bean
 	public ServletRegistrationBean<ExecuteModificaRegistaServlet> createExecuteModificaRegistaServletBean() {
 		ServletRegistrationBean<ExecuteModificaRegistaServlet> bean = new ServletRegistrationBean<ExecuteModificaRegistaServlet>(
@@ -206,6 +214,22 @@ public class SerlvetRegistrationConfig {
 	public ServletRegistrationBean<ExecuteModificaFilmServlet> createExecuteModificaFilmServletBean() {
 		ServletRegistrationBean<ExecuteModificaFilmServlet> bean = new ServletRegistrationBean<ExecuteModificaFilmServlet>(
 				executeModificaFilmServlet, "/ExecuteModificaFilmServlet");
+		return bean;
+	}
+
+	// ---------------------------utente--------------------------------------
+
+	@Bean
+	public ServletRegistrationBean<PrepareSearchUtenteServlet> createPrepareSearchUtenteServletBean() {
+		ServletRegistrationBean<PrepareSearchUtenteServlet> bean = new ServletRegistrationBean<PrepareSearchUtenteServlet>(
+				prepareSearchUtenteServlet, "/PrepareSearchUtenteServlet");
+		return bean;
+	}
+
+	@Bean
+	public ServletRegistrationBean<ExecuteSearchUtenteServlet> createExecuteSearchUtenteServletBean() {
+		ServletRegistrationBean<ExecuteSearchUtenteServlet> bean = new ServletRegistrationBean<ExecuteSearchUtenteServlet>(
+				executeSearchUtenteServlet, "/ExecuteSearchUtenteServlet");
 		return bean;
 	}
 

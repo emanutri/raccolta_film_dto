@@ -1,6 +1,8 @@
 package it.prova.raccoltafilmspringbootservletspringdata.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,7 @@ public class RuoloServiceImpl implements RuoloService {
 
 	@Transactional(readOnly = true)
 	public List<Ruolo> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Ruolo>) ruoloRepository.findAll();
 	}
 
 	@Transactional(readOnly = true)
@@ -28,7 +29,7 @@ public class RuoloServiceImpl implements RuoloService {
 
 	@Transactional
 	public void aggiorna(Ruolo ruoloInstance) {
-		// TODO Auto-generated method stub
+		ruoloRepository.save(ruoloInstance);
 
 	}
 
@@ -39,13 +40,24 @@ public class RuoloServiceImpl implements RuoloService {
 
 	@Transactional
 	public void rimuovi(Ruolo ruoloInstance) {
-		// TODO Auto-generated method stub
+		ruoloRepository.delete(ruoloInstance);
 
 	}
 
 	@Transactional(readOnly = true)
 	public Ruolo cercaPerDescrizioneECodice(String descrizione, String codice) {
 		return ruoloRepository.findByDescrizioneAndCodice(descrizione, codice);
+	}
+	
+	@Transactional(readOnly = true)
+	public Set<Ruolo> findOnArrayByIdParam(String[] ids) {
+		Set<Ruolo> ruoli = new HashSet<>();
+		if (ids != null && ids.length > 0) {
+			for (String ruoloItem : ids) {
+				ruoli.add(ruoloRepository.findById(Long.parseLong(ruoloItem)).get());
+			}
+		}
+		return ruoli;
 	}
 
 }
